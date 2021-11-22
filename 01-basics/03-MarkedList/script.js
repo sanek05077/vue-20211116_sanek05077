@@ -32,9 +32,7 @@ const App = {
   data() {
     return {
       emails,
-      filter: {
-        search: '',
-      },
+      search: '',
     };
   },
   computed: {
@@ -43,15 +41,20 @@ const App = {
         return null;
       }
 
-      const searchFilter = (email) =>
-        [email]
-          .join(' ')
-          .toLowerCase()
-          .includes(this.filter.search.toLowerCase());
-      return this.emails.filter(
-        (email) =>
-          searchFilter(email)
-      );
+      const emailsWithData = emails.map((email) => ({
+        email,
+        is_matched: false,
+      }));
+
+      const filteredEmailsWithData = emailsWithData.map(({ email }) => {
+        return {
+          email,
+          is_matched: this.search !== ''
+            ? email.toLowerCase().includes(this.search.toLowerCase())
+            : false
+        };
+      });
+      return filteredEmailsWithData;
     },
   },
 };
@@ -59,3 +62,5 @@ const App = {
 const app = createApp(App);
 
 const vm = app.mount('#app');
+
+window.vm = vm;

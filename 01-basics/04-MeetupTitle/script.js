@@ -6,6 +6,7 @@ const App = {
   data() {
     return {
       meetupName: null,
+      title: null,
     };
   },
   methods: {
@@ -26,10 +27,9 @@ const App = {
       deep: true,
       immediate: true,
       handler(meetupId) {
-        if (meetupId >= 1) {
-          const results = this.fetchMeetupById(meetupId).then(data => {
-            console.log(data.title)
-
+        if (meetupId) {
+          return this.fetchMeetupById(meetupId).then(data => {
+            this.title = data.title;
           });
         }
       },

@@ -12,13 +12,13 @@ const App = {
     result() {
       switch (this.operator) {
         case 'sum':
-          return parseInt(this.firstNumber) + parseInt(this.secondNumber);
+          return this.firstNumber + this.secondNumber;
         case 'subtract':
-          return parseInt(this.firstNumber) - parseInt(this.secondNumber);
+          return this.firstNumber - this.secondNumber;
         case 'multiply':
-          return parseInt(this.firstNumber) * parseInt(this.secondNumber);
+          return this.firstNumber * this.secondNumber;
         case 'divide':
-          return parseInt(this.firstNumber) / parseInt(this.secondNumber);
+          return this.firstNumber / this.secondNumber;
         default:
           return 'Incorrect operator';
       }

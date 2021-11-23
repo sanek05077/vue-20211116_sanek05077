@@ -41,12 +41,7 @@ const App = {
         return null;
       }
 
-      const emailsWithData = emails.map((email) => ({
-        email,
-        is_matched: false,
-      }));
-
-      const filteredEmailsWithData = emailsWithData.map(({ email }) => {
+      const filteredEmailsWithData = emails.map((email) => {
         return {
           email,
           is_matched: this.search !== ''
@@ -54,6 +49,7 @@ const App = {
             : false
         };
       });
+
       return filteredEmailsWithData;
     },
   },

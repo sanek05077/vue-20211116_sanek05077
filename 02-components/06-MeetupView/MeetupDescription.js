@@ -1,15 +1,12 @@
 import { defineComponent } from './vendor/vue.esm-browser.js';
 
 export default defineComponent({
-  name: 'UiAlert',
+  name: 'MeetupDescription',
   props: {
-    text: {
+    description: {
       type: String,
     },
   },
 
-  template: `
-    <div class="alert">
-      <slot>{{ text }}</slot>
-    </div>`,
+  template: `<p class="meetup-description">{{ description }}</p>`,
 });

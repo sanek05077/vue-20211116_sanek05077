@@ -15,6 +15,7 @@ export default defineComponent({
       required: true,
     },
   },
+
   template: `
     <div class="agenda-item">
       <div class="agenda-item__col">
@@ -23,7 +24,6 @@ export default defineComponent({
       <div class="agenda-item__col">{{ agendaItem.startsAt }} - {{ agendaItem.endsAt }}</div>
       <div class="agenda-item__col">
         <h3 class="agenda-item__title" v-if="agendaItem.title !== null">{{ agendaItem.title }}</h3>
-
         <h3 class="agenda-item__title" v-else>{{ agendaItemDefaultTitles[agendaItem.type] }}</h3>
         <p v-if="agendaItem.type === 'talk'" class="agenda-item__talk">
           <span>{{ agendaItem.speaker }}</span>

@@ -28,7 +28,6 @@ export default defineComponent({
   },
 
   template: `
-    <template v-if="meetup">
       <meetup-cover :title="meetup.title" :image="meetup.image"></meetup-cover>
 
       <ui-container>
@@ -52,7 +51,6 @@ export default defineComponent({
           </div>
         </div>
       </ui-container>
-    </template>
-    <ui-alert v-else>Митапов по заданным условиям не найдено...</ui-alert>
+
   `,
 });

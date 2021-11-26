@@ -11,13 +11,14 @@
       <div class="container">
         <p>
           <select v-model="meetupId">
-            <option v-for="i in 10" :key="i" :value="i">{{ i }}</option>
+            <option v-for="i in 7" :key="i" :value="i">{{ i }}</option>
           </select>
         </p>
       </div>
 
       <page-meetup :meetup-id="meetupId"></page-meetup>
     </div>
+
 
     <script type="module">
       import { createApp } from './vendor/vue.esm-browser.js';

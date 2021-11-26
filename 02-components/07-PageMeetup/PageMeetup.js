@@ -22,6 +22,7 @@ export default defineComponent({
     return {
       meetup: null,
       loader: false,
+      error: '',
     };
   },
 
@@ -33,9 +34,17 @@ export default defineComponent({
         this.loader = true;
         if (meetupId) {
           return fetchMeetupById(meetupId)
-            .then(data => {if(data) { this.meetup = data; this.loader = false; }
-          })
-            .catch((error) => {this.meetup = null; this.loader = false;})
+            .then(data => {
+              if (data) {
+                this.meetup = data;
+                this.loader = false;
+              }
+            })
+            .catch((error) => {
+              this.meetup = null;
+              this.loader = false;
+              this.error = error.message;
+            });
         }
       },
     },
@@ -48,7 +57,7 @@ export default defineComponent({
       <template v-else>
         <meetup-view v-if="meetup" :meetup="meetup"></meetup-view>
         <ui-container v-else>
-          <ui-alert text="Test Error"></ui-alert>
+          <ui-alert>{{ error }}</ui-alert>
         </ui-container>
       </template>
 

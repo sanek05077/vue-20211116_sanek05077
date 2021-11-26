@@ -28,7 +28,6 @@ export default defineComponent({
   },
 
   template: `
-    <template v-if="meetup">
       <meetup-cover :title="meetup.title" :image="meetup.image"></meetup-cover>
 
       <ui-container>
@@ -38,9 +37,7 @@ export default defineComponent({
             <meetup-description :description="meetup.description"></meetup-description>
 
             <h3>Программа</h3>
-            <template v-if="meetup.agenda.length">
-              <meetup-agenda :agenda="meetup.agenda"></meetup-agenda>
-            </template>
+              <meetup-agenda v-if="meetup.agenda.length" :agenda="meetup.agenda"></meetup-agenda>
             <ui-alert v-else>Программа пока пуста...</ui-alert>
           </div>
           <div class="meetup__aside">
@@ -52,7 +49,5 @@ export default defineComponent({
           </div>
         </div>
       </ui-container>
-    </template>
-    <ui-alert v-else>Митапов по заданным условиям не найдено...</ui-alert>
   `,
 });

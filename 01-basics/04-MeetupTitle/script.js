@@ -6,7 +6,7 @@ const App = {
   data() {
     return {
       meetupName: null,
-      title: null,
+      meetupTitle: null,
     };
   },
   methods: {
@@ -29,7 +29,7 @@ const App = {
       handler(meetupId) {
         if (meetupId) {
           return this.fetchMeetupById(meetupId).then(data => {
-            this.title = data.title;
+            this.meetupTitle = data.title;
           });
         }
       },

@@ -147,7 +147,6 @@ describe('vue-cli/UiDropdown1', () => {
 
     // Раскомментируйте блок ниже, если решаете дополнительную часть задачи
 
-    /*
 
     it('UiDropdown должен иметь <select> со списком вариантов <option> в соответствии с параметром options', () => {
       const wrapper = mount(UiDropdown, {
@@ -181,6 +180,5 @@ describe('vue-cli/UiDropdown1', () => {
       expect(wrapper.emitted('update:modelValue')[0]).toEqual([OPTIONS[1].value]);
     });
 
-     */
   });
 });

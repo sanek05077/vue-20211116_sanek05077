@@ -1,13 +1,22 @@
 <template>
-  <div class="input-group input-group_icon input-group_icon-left input-group_icon-right">
-    <div class="input-group__icon">
-      <img class="icon" alt="icon" />
+  <div class="input-group input-group_icon" :class="{'input-group_icon-left':$slots['left-icon'],'input-group_icon-right':$slots['right-icon']}">
+    <div v-if="$slots['left-icon']" class="input-group__icon">
+      <slot name="left-icon"></slot>
     </div>
 
-    <input ref="input" class="form-control form-control_rounded form-control_sm" />
+    <component
+      :is="tag"
+      class="form-control"
+      :class="hasClassInput"
+      ref="input"
+      v-bind="$attrs"
+      :value="modelValue"
+      @input="handleInput"
+      @change="changeInput"
+       />
 
-    <div class="input-group__icon">
-      <img class="icon" alt="icon" />
+    <div v-if="$slots['right-icon']" class="input-group__icon">
+      <slot name="right-icon"></slot>
     </div>
   </div>
 </template>
@@ -15,6 +24,52 @@
 <script>
 export default {
   name: 'UiInput',
+  inheritAttrs: false,
+  props: {
+    small: {
+      type: Boolean,
+    },
+    rounded: {
+      type: Boolean,
+    },
+    multiline: {
+      type: Boolean,
+    },
+    modelValue: {
+      type: String,
+    },
+    modelModifiers: {
+      default: () => ({}),
+    },
+  },
+  emits: ['update:modelValue'],
+  computed: {
+    tag() {
+      if (this.multiline) {
+        return 'textarea';
+      }
+      return 'input';
+    },
+    hasClassInput() {
+      if (this.small) {
+        return 'form-control_sm';
+      } else if (this.rounded) {
+        return 'form-control_rounded';
+      }
+      return null;
+    },
+  },
+  methods: {
+    focus() {
+      this.$refs['input'].focus();
+    },
+    handleInput($event) {
+      if (!this.modelModifiers.lazy) this.$emit('update:modelValue', $event.target.value);
+    },
+    changeInput($event) {
+      if (this.modelModifiers.lazy) this.$emit('update:modelValue', $event.target.value);
+    },
+  },
 };
 </script>
 

@@ -1,10 +1,7 @@
 <template>
-  <ui-input ref="uiInput" v-model="dataModel" :type="type">
-    <template v-if="$slots['left-icon']" #left-icon>
-      <slot name="left-icon" />
-    </template>
-    <template v-if="$slots['right-icon']" #right-icon>
-      <slot name="left-icon" />
+  <ui-input ref="uiInput" v-model="modelDate" :type="type" @input="handlerInput">
+    <template v-for="slotName in Object.keys($slots)" #[slotName]>
+      <slot :name="slotName" />
     </template>
   </ui-input>
 </template>
@@ -36,7 +33,7 @@ export default {
   },
   emits: ['update:modelValue'],
   computed: {
-    dataFormat() {
+    dateFormat() {
       let date = new Date(this.modelValue);
       if (this.type === 'time') {
         if (this.$attrs.step && this.$attrs.step % 60 !== 0) {
@@ -49,16 +46,15 @@ export default {
       }
       return getDate(date);
     },
-    dataModel: {
+    modelDate: {
       get() {
-        if (!this.modelValue) {
-          return null;
-        }
-        return this.dataFormat;
+        return this.modelValue ? this.dateFormat : null;
       },
-      set() {
-        this.$emit('update:modelValue', this.$refs.uiInput.$refs.input.valueAsNumber);
-      },
+    },
+  },
+  methods: {
+    handlerInput(event) {
+      this.$emit('update:modelValue', event.target.valueAsNumber);
     },
   },
 };

@@ -7,13 +7,12 @@
     <component
       :is="tag"
       class="form-control"
-      :class="hasClassInput"
+      :class="{ 'form-control_sm': small, 'form-control_rounded': rounded }"
       ref="input"
       v-bind="$attrs"
       :value="modelValue"
-      @input="handleInput"
-      @change="changeInput"
-       />
+      @[eventType]="changeInput"
+    />
 
     <div v-if="$slots['right-icon']" class="input-group__icon">
       <slot name="right-icon"></slot>
@@ -50,24 +49,16 @@ export default {
       }
       return 'input';
     },
-    hasClassInput() {
-      if (this.small) {
-        return 'form-control_sm';
-      } else if (this.rounded) {
-        return 'form-control_rounded';
-      }
-      return null;
+    eventType() {
+      return this.modelModifiers.lazy ? 'change' : 'input';
     },
   },
   methods: {
     focus() {
       this.$refs['input'].focus();
     },
-    handleInput($event) {
-      if (!this.modelModifiers.lazy) this.$emit('update:modelValue', $event.target.value);
-    },
     changeInput($event) {
-      if (this.modelModifiers.lazy) this.$emit('update:modelValue', $event.target.value);
+      this.$emit('update:modelValue', $event.target.value);
     },
   },
 };

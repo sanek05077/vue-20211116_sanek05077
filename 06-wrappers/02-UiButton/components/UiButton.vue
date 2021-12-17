@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" class="button" :class="hasClass" :type="hasButton">
+  <component :is="tag" class="button" :class="[{ 'button_block': block }, buttonClass]" :type="hasButton">
     <slot />
   </component>
 </template>
@@ -21,10 +21,7 @@ export default {
     },
   },
   computed: {
-    hasClass() {
-      if (this.block) {
-        return 'button_block ' + 'button_' + this.variant;
-      }
+    buttonClass() {
       return 'button_' + this.variant;
     },
     hasButton() {
